@@ -14,11 +14,12 @@ void display();
 void insatbeg(int val);
 void insatend(int val);
 void delnode(int val);
-void  insaft(int val);
+void  insaft(int key, int val);
+void insbef(int key , int val);
 
 int main()
 {
-    int ch, val;
+    int ch, val, key;
 
     do
     {
@@ -29,9 +30,9 @@ int main()
         printf("\n 3. insert at beginig");
         printf("\n 4. insert at end");
         printf("\n 5. insert after");
-        printf()
-        printf("\n 6. delete");
-        printf("\n 7. Exsit");
+        printf("\n 6. insert before");
+        printf("\n 7. delete");
+        printf("\n 8. Exsit");
         printf("\n|--------------------|");
         printf("\nEnter the your chioce : ");
         scanf("%d", &ch);
@@ -63,13 +64,24 @@ int main()
 
         else if (ch == 5)
         {
+            printf("\n Enter the key : ");
+            scanf("%d", &key);
             printf("\n Enter the value : ");
             scanf("%d", &val);
-            insaft(val);
+            insaft(key,val);
+        }
+        
+        else if (ch == 6)
+        {
+            printf("\n Enter the key : ");
+            scanf("%d", &key);
+            printf("\n Enter the value : ");
+            scanf("%d", &val);
+            insbef(key,val);
         }
         
 
-        else if (ch == 6)
+        else if (ch == 7)
         {
             printf("\n Enter the value : ");
             scanf("%d", &val);
@@ -77,7 +89,7 @@ int main()
         }
         
 
-        else if (ch == 7)
+        else if (ch == 8)
         {
             printf("\n Good Bye ");
             break;;
@@ -87,7 +99,7 @@ int main()
         {
             printf("\n Enter valid choice");
         }
-    } while (ch != 6);
+    } while (ch != 8);
 }
 
 void create()
@@ -223,7 +235,7 @@ void delnode(int val)
     free(curr);
 }
 
-void insaft(int val)
+void insaft(int key,int val)
 {
     struct node *new, *curr;
 
@@ -241,7 +253,7 @@ void insaft(int val)
 
     curr = first;
 
-    while (curr != NULL && curr -> data != val)
+    while (curr != NULL && curr -> data != key)
     {
         curr = curr -> rptr;
     }
@@ -261,4 +273,53 @@ void insaft(int val)
         new -> rptr -> lptr = new;
     }
 
+}
+
+void insbef(int key , int val)
+{
+    struct node *curr, *new;
+
+    if (first == NULL)
+    {
+        printf("\n WLink-List is empty");
+        return;
+    }
+
+    new = (struct node*)malloc(sizeof(struct node));
+
+    new -> data = val;
+
+    if (first -> data == key)
+    {
+        first -> lptr = new;
+        new -> rptr = first;
+        first = new;
+        return;
+    }
+    
+    curr = first;
+
+    while (curr != NULL && curr -> data != key)
+    {
+        curr = curr -> rptr;
+    } 
+
+    if (curr == NULL)
+    {
+        printf("\n Value does't found");
+        return;
+    }
+    
+
+    new -> rptr = curr;
+    new -> lptr = curr -> lptr;
+    curr -> lptr = new;
+
+    if (curr -> lptr != NULL)
+    {
+        curr -> lptr -> rptr = new;
+    }
+    
+    
+    
 }
