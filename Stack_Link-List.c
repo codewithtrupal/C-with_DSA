@@ -1,53 +1,57 @@
 #include<stdio.h>
-#define MAX 5
+#include<stdlib.h>
 
-int stack[MAX];
-int top =-1;
+struct node
+{
+    int data;
+    struct node *next;
+}*top= NULL;
 
 void push(int val)
 {
-    if (top == MAX -1)      
+    struct node *new;
+    new = (struct node*)malloc(sizeof(struct node));
+
+    if (new == NULL)
     {
-        printf("\nStack is overflow");
+        printf("\n Stack overflow");
         return;
     }
 
-    top++;
-    top[stack] = val;
+    new -> data = val;
+    new -> next = top;
+    top = new;
     
 }
 
 int pop()
 {
+    struct node *curr;
     int tem;
 
-    if (top == -1)
+    if (top == NULL)
     {
-        printf("\n Stack is underflow");
-        return;
+        printf("\n Stack underflow");
+        return 0;
     }
 
-    tem = top[stack];
-    top--;
+    curr = top;
+    top = top -> next;
+    tem = curr -> data;
+    free(tem);
 
     return tem;
-    
 }
 
 int peep()
 {
-    int tem;
-
-    if (top == -1)
+    if (top == NULL)
     {
-        printf("\n Stack is underflow");
-        return;
+        printf("\n Stack underflow");
+        return 0;
     }
 
-    tem = top[stack];
-
-    return tem;
-    
+    return top -> data;
 }
 
 void main()
