@@ -38,7 +38,7 @@ int pop()
     curr = top;
     top = top -> next;
     tem = curr -> data;
-    free(tem);
+    free(curr);
 
     return tem;
 }

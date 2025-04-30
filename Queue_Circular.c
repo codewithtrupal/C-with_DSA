@@ -7,7 +7,7 @@ int rear = -1;
 
 void ENQUEUE(int val)
 {
-    if ((front == -1 && rear == MAX -1) || rear + 1 == front)
+    if ((front == 0 && rear == MAX -1) || rear + 1 == front)
     {
         printf("\nQueue overflow ");
         return;
